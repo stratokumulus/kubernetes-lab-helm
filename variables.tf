@@ -21,6 +21,7 @@ variable "keycloak_passwd" {
 # What do we enable today ? 
 # Format is "module name" = bool
 #-------------------------------
+
 variable "enable" {
   type = map(any)
   default = {

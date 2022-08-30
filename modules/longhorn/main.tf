@@ -1,14 +1,16 @@
 resource "helm_release" "longhorn" {
-    name = "longhorn"
-    repository = "https://charts.longhorn.io" 
-    chart = "longhorn"
-    namespace = "longhorn-system"
-    create_namespace = true
+  name             = "longhorn"
+  repository       = "https://charts.longhorn.io"
+  chart            = "longhorn"
+  namespace        = "longhorn-system"
+  create_namespace = true
+  version          = var.chart_version
 
-    set {
-      name = "createDefaultDiskLabeledNodes"
-      value = true
-    }
+
+  set {
+    name  = "createDefaultDiskLabeledNodes"
+    value = true
+  }
 }
 
 # There's no way to delete a resource from within Terraform, so this is the only way to go. 
@@ -16,7 +18,7 @@ resource "helm_release" "longhorn" {
 
 resource "null_resource" "delete_longhorn_lb_svc" {
   depends_on = [
-    helm_release.longhorn  
+    helm_release.longhorn
   ]
   provisioner "local-exec" {
     command = "KUBECONFIG=./kubeconfig-k3s kubectl delete svc longhorn-frontend -n longhorn-system"
@@ -29,7 +31,7 @@ resource "kubernetes_service" "longhorn-frontend" {
     null_resource.delete_longhorn_lb_svc
   ]
   metadata {
-    name = "longhorn-frontend"
+    name      = "longhorn-frontend"
     namespace = "longhorn-system"
   }
   spec {

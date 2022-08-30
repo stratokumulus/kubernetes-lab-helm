@@ -1,18 +1,18 @@
 resource "helm_release" "kubeapps" {
-    name = "kubeapps"
-    repository = "https://charts.bitnami.com/bitnami" 
-    chart = "kubeapps"
-    version = "10.0.1"
+  name       = "kubeapps"
+  repository = "https://charts.bitnami.com/bitnami"
+  chart      = "kubeapps"
+  version    = var.chart_version
 
-    set {
-        name = "frontend.service.type"
-        value = "LoadBalancer"
-    }
+  set {
+    name  = "frontend.service.type"
+    value = "LoadBalancer"
+  }
 
-    set {
-        name = "frontend.service.ports.http"
-        value = 8990    
-    }
+  set {
+    name  = "frontend.service.ports.http"
+    value = 8990
+  }
 }
 
 # Bug in current provider and nodes running 1.24.x. Workaround is to use a manifest instead
@@ -32,9 +32,9 @@ resource "kubernetes_manifest" "kubeapps-operator" {
   ]
   manifest = {
     "apiVersion" = "v1"
-    "kind" = "ServiceAccount"
+    "kind"       = "ServiceAccount"
     "metadata" = {
-      "name" = "kubeapps-operator"
+      "name"      = "kubeapps-operator"
       "namespace" = "default"
     }
   }
@@ -64,8 +64,8 @@ resource "kubernetes_secret" "kubeapps-operator-token" {
     kubernetes_cluster_role_binding.kubeapps-operator
   ]
   metadata {
-    name = "kubeapps-operator-token"
-    namespace = "default" 
+    name      = "kubeapps-operator-token"
+    namespace = "default"
     annotations = {
       "kubernetes.io/service-account.name" = "kubeapps-operator"
     }
