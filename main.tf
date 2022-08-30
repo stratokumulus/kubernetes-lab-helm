@@ -60,15 +60,3 @@ module "grafana" {
   grafana_admin_passwd = var.grafana_passwd
 }
 
-# Add Minio - Is it necessary ?
-# Add Hashicorp Vault
-# Add Velero
-
-# terraform {
-#   required_providers {
-#     kubectl = {
-#       source  = "gavinbunney/kubectl"
-#       version = ">= 1.7.0"
-#     }
-#   }
-# }
