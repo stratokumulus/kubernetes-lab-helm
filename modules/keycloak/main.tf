@@ -6,8 +6,6 @@ resource "helm_release" "keycloak" {
   namespace        = "keycloak"
   create_namespace = true
 
-  timeout = 600 # 15 minutes ... as some statefulset can take some time
-
   set {
     name  = "service.ports.http"
     value = 8180

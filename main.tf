@@ -59,4 +59,10 @@ module "grafana" {
   count                = var.enable["grafana"] && var.enable["prometheus"] ? 1 : 0 # No need to install Grafana is Prometheus is not enabled
   grafana_admin_passwd = var.grafana_passwd
 }
-
+module "istio" {
+  depends_on = [
+    module.longhorn
+  ]
+  source = "./modules/istio"
+  count  = var.enable["istio"] ? 1 : 0
+}

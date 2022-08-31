@@ -32,6 +32,8 @@ variable "enable" {
     "kibana"     = true,
     "prometheus" = true,
     "grafana"    = true,
-    "longhorn"   = true
+    "longhorn"   = true,
+    "istio"      = true,
   }
 }
+
