@@ -66,3 +66,10 @@ module "istio" {
   source = "./modules/istio"
   count  = var.enable["istio"] ? 1 : 0
 }
+module "wekan" {
+  depends_on = [
+    module.longhorn
+  ]
+  source = "./modules/wekan"
+  count  = var.enable["wekan"] ? 1 : 0
+}

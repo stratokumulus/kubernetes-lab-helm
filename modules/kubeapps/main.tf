@@ -5,10 +5,25 @@ resource "helm_release" "kubeapps" {
   version    = var.chart_version
 
   set {
+    name = "apprepository.initialRepos[0].name"
+    value = "bitnami"
+  }
+  set {
+    name = "apprepository.initialRepos[0].url"
+    value = "https://charts.bitnami.com/bitnami"
+  }
+  set {
+    name = "apprepository.initialRepos[1].name"
+    value = "elastic"
+  }
+  set {
+    name = "apprepository.initialRepos[1].url"
+    value = "https://helm.elastic.co"
+  }
+  set {
     name  = "frontend.service.type"
     value = "LoadBalancer"
   }
-
   set {
     name  = "frontend.service.ports.http"
     value = 8990
@@ -71,10 +86,8 @@ resource "kubernetes_secret" "kubeapps-operator-token" {
     }
 
   }
-
   type = "kubernetes.io/service-account-token"
 }
-
 data "kubernetes_resource" "token" {
   depends_on = [
     kubernetes_cluster_role_binding.kubeapps-operator

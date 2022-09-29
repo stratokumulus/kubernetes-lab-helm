@@ -1,9 +1,9 @@
 provider "kubernetes" {
-  config_path = "./kubeconfig-k3s"
+  config_path = "./kubeconfig"
 }
 
 provider "helm" {
   kubernetes {
-    config_path = "./kubeconfig-k3s"
+    config_path = "./kubeconfig"
   }
 }

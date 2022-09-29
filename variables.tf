@@ -34,6 +34,7 @@ variable "enable" {
     "grafana"    = true,
     "longhorn"   = true,
     "istio"      = true,
+    "wekan"      = true,
   }
 }
 

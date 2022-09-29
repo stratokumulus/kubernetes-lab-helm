@@ -5,8 +5,7 @@ resource "helm_release" "longhorn" {
   namespace        = "longhorn-system"
   create_namespace = true
   version          = var.chart_version
-
-
+  
   set {
     name  = "createDefaultDiskLabeledNodes"
     value = true
